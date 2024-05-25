@@ -4,7 +4,7 @@ import random
 import json
 import requests
 from Adafruit_Thermal import *
-from bmp2array import *
+from bmp2array import img_to_bmp
 import numpy as np
 import io
 from PIL import Image, ImageOps
@@ -36,9 +36,10 @@ bmp = list(map(lambda x: 0.299*x[0]+0.587*x[1]+0.114*x[2],
 bmp = np.array(bmp).reshape([arr.shape[0], arr.shape[1]])
 bmp = np.dot((bmp > 128).astype(int), 255)
 i = (bmp.astype(np.uint8))
+i = img_to_bmp(i)
 
-var image = new Bitmap(10, 10);
 print(i)
+
 
 
 ## Print the Card
