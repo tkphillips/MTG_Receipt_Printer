@@ -1,6 +1,7 @@
 import serial
 from itertools import chain
 import random
+import itertools
 import json
 import requests
 from Adafruit_Thermal import *
@@ -31,17 +32,16 @@ r = r.reshape(-1)
 g = g.reshape(-1)
 b = b.reshape(-1)
 
-bmp = list(map(lambda x: 0.299*x[0]+0.587*x[1]+0.114*x[2],
-               zip(r,g,b)))
+bmp = list(map(lambda x: 0.299*x[0]+0.587*x[1]+0.114*x[2],zip(r,g,b)))
 bmp = np.array(bmp).reshape([arr.shape[0], arr.shape[1]])
 bmp = np.dot((bmp > 128).astype(int), 255)
-i = (bmp.astype(np.uint8))
-i = img_to_bmp(i)
+bmp = bmp.astype(np.uint8).tolist()
 
-print(i)
+with open('your_file.txt', 'w') as f:
+    for line in bmp:
+        f.write(f"{line}\n")
 
 
-
+print(bmp)
 ## Print the Card
-
-printer.printBitmap(380, 530, i)
+printer.printBitmap(530, 380, bmp)
