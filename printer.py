@@ -42,8 +42,7 @@ bmp = bmp.astype(np.bool_).tolist()
 final = []
 for x in range(0, len(bmp), 8):
     temp = bmp[x:x+8]
-    n = int(''.join(['1' if i else '0' for i in temp
-                     ]), 2)
+    n = int(''.join(['1' if i else '0' for i in temp]), 2)
     final.append(n)
 
 with open('your_file.txt', 'w') as f:
@@ -52,5 +51,4 @@ with open('your_file.txt', 'w') as f:
 
 ## Print the Card
 printer.printBitmap(384, 536, final)
-printer.println("")
-printer.println("")
+printer.feed(2)
