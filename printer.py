@@ -50,7 +50,5 @@ with open('your_file.txt', 'w') as f:
     for line in final:
         f.write(f"{line}\n")
 
-
-print(final)
 ## Print the Card
 printer.printBitmap(384, 536, final)
