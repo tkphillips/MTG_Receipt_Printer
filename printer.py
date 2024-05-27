@@ -52,3 +52,5 @@ with open('your_file.txt', 'w') as f:
 
 ## Print the Card
 printer.printBitmap(384, 536, final)
+printer.println("")
+printer.println("")
