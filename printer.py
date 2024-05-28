@@ -25,19 +25,10 @@ with open('temp_img.jpg', 'wb') as handler:
 img = Image.open("temp_img.jpg")
 newsize = (384, 536)
 img = img.resize(newsize)
+img = img.convert("1", dither=Image.Dither.FLOYDSTEINBERG, palette=Image.Palette.ADAPTIVE, colors = 256)
 img = ImageOps.invert(img)
-arr = np.array(img)
 
-r,g,b = np.split(arr, 3, axis=2)
-r = r.reshape(-1)
-g = g.reshape(-1)
-b = b.reshape(-1)
-
-bmp = list(map(lambda x: 0.299*x[0]+0.587*x[1]+0.114*x[2],zip(r,g,b)))
-bmp = np.array(bmp).reshape([arr.shape[0], arr.shape[1]])
-bmp = np.dot((bmp > 128).astype(int), 255).flatten()
-
-bmp = bmp.astype(np.bool_).tolist()
+bmp = np.array(img).flatten().astype(np.bool_).tolist()
 
 final = []
 for x in range(0, len(bmp), 8):
